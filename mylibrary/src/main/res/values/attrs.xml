@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="shade_button">
+        <attr name="text" format="string" />
+        <attr name="parentBackground" format="integer" />
+        <attr name="buttonBackground" format="integer" />
+        <attr name="penSize" format="dimension"/>
+        <attr name="penColor" format="color"/>
+    </declare-styleable>
+</resources>
