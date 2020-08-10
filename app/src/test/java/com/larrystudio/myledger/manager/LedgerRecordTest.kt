@@ -22,19 +22,18 @@ class LedgerRecordTest {
 
     @Before
     fun setUp() {
-        ManagerFactory.context = RuntimeEnvironment.application
-        ledgerManager = ManagerFactory.getLedgerManager()
+        ledgerManager = ManagerFactory
+            .getInstance(RuntimeEnvironment.application)
+            .getLedgerManager()
         ledgerManager.insertBasicCategories()
         insertTestRecords()
     }
 
     @After
     fun tearDown(){
-        if(ManagerFactory.db?.isOpen == true){
-            ManagerFactory.db?.close()
-            ManagerFactory.db = null
-            ManagerFactory.mLedgerManager = null
-        }
+        ManagerFactory
+            .getInstance(RuntimeEnvironment.application)
+            .closeDB()
     }
 
     private fun insertTestRecords(){

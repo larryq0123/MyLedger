@@ -1,5 +1,6 @@
 package com.larry.larrylibrary.base
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -61,10 +62,6 @@ abstract class VeryBaseActivity: AppCompatActivity() {
         val dimens = MeasureUtil.getScreenDimens(this)
         screenWidth = dimens[0]
         screenHeight = dimens[1]
-    }
-
-    protected fun showToast(message: String) {
-        BaseLogUtil.showToast(this, message)
     }
 
     protected fun goPage(c: Class<*>, isFinish: Boolean) {

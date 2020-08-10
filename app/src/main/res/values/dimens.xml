@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_text_size">13sp</dimen>
+    <dimen name="medium_text_size">15sp</dimen>
+    <dimen name="large_text_size">18sp</dimen>
+    <dimen name="xlarge_text_size">20sp</dimen>
+    <dimen name="xxlarge_text_size">23sp</dimen>
+    <dimen name="xxxlarge_text_size">26sp</dimen>
+
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="large_stroke_width">2dp</dimen>
+    <dimen name="micro_padding">2dp</dimen>
+    <dimen name="tiny_padding">4dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="msmall_padding">12dp</dimen>
+    <dimen name="medium_padding">15dp</dimen>
+    <dimen name="large_padding">22dp</dimen>
+    <dimen name="xlarge_padding">30dp</dimen>
+    <dimen name="xxlarge_padding">38dp</dimen>
+    <dimen name="xxxlarge_padding">45dp</dimen>
+    <dimen name="xxxxlarge_padding">52dp</dimen>
+    <dimen name="huge_padding">60dp</dimen>
+
+    //MainActivity
+    <dimen name="menu_icon_size">32dp</dimen>
+    <dimen name="navigation_width">240dp</dimen>
+</resources>

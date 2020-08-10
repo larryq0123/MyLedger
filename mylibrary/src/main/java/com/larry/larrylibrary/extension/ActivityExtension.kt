@@ -80,7 +80,7 @@ fun Activity.hideSoftInput() {
     }
 }
 
-fun Activity.openSoftInput() {
+fun Activity.showSoftInput() {
     val view = currentFocus
     if (view != null) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

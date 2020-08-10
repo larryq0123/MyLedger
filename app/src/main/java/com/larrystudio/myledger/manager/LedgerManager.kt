@@ -66,13 +66,34 @@ class LedgerManager(private val categoryDao: CategoryDao,
         return categoryDao.update(category)
     }
 
+    fun isExpType(categories: List<Category>, record: Record): Boolean{
+        return categories.find{ it.id == record.categoryID
+                && it.isExpenditure() } != null
+    }
+
+    private fun findCategory(categories: List<Category>, cid: Long): Category?{
+        return categories.find { it.id == cid }
+    }
+
+    //=========================================
+
     fun loadAllRecords(): List<Record>{
-        return recordDao.getAll()
+        val categories = getAllCategories()
+        return recordDao.getAll().apply {
+            forEach { record ->
+                record.category = findCategory(categories, record.categoryID)
+            }
+        }
     }
 
     fun loadRecordsByDate(date: Date): List<Record>{
+        val categories = getAllCategories()
         val timestamp = DateHelper.timestampOfDate(date)
-        return recordDao.getRecordByDate(timestamp)
+        return recordDao.getRecordByDate(timestamp).apply {
+            forEach { record ->
+                record.category = findCategory(categories, record.categoryID)
+            }
+        }
     }
 
     fun loadRecordsByMonth(date: Date): List<Record>{
@@ -88,7 +109,12 @@ class LedgerManager(private val categoryDao: CategoryDao,
 //        LogUtil.logd(TAG, "beginDate = ${DateHelper.formatDate(calendar.time)}, beginTimestamp = $start")
 //        LogUtil.logd(TAG, "endDate = ${DateHelper.formatDate(calendar.time)}, endTimestamp = $end")
 
-        return recordDao.getRecordsByInterval(start, end)
+        val categories = getAllCategories()
+        return recordDao.getRecordsByInterval(start, end).apply {
+            forEach { record ->
+                record.category = findCategory(categories, record.categoryID)
+            }
+        }
     }
 
     fun loadRecordsByYear(date: Date): List<Record>{
@@ -105,7 +131,12 @@ class LedgerManager(private val categoryDao: CategoryDao,
         LogUtil.logd(TAG, "beginDate = ${DateHelper.formatDate(calendar.time)}, beginTimestamp = $start")
         LogUtil.logd(TAG, "endDate = ${DateHelper.formatDate(calendar.time)}, endTimestamp = $end")
 
-        return recordDao.getRecordsByInterval(start, end)
+        val categories = getAllCategories()
+        return recordDao.getRecordsByInterval(start, end).apply {
+            forEach { record ->
+                record.category = findCategory(categories, record.categoryID)
+            }
+        }
     }
 
     fun insertRecord(record: Record, dateString: String): Long{

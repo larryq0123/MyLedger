@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--//基本顏色-->
-    <!--<color name="transparent">#00000000</color>-->
+    <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <!--<color name="darkGray">#555555</color>-->
-    <!--<color name="lightGray">#aaaaaa</color>-->
-    <!--<color name="red">#FF0000</color>-->
-    <!--<color name="green">#00ff00</color>-->
-    <!--<color name="blue">#0000ff</color>-->
-    <!--<color name="yellow">#ffff00</color>-->
-    <!--<color name="brown">#8B4513</color>-->
+    <color name="almostBlack">#202020</color>
+    <color name="darkGray">#555555</color>
+    <color name="lightGray">#cccccc</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00ff00</color>
+    <color name="normalGreen">#00aa00</color>
+    <color name="blue">#0000ff</color>
+    <color name="yellow">#ffff00</color>
+    <color name="brown">#8B4513</color>
 
     <!--<color name="tiffanyBlue">#BBFFEE</color>-->
 </resources>

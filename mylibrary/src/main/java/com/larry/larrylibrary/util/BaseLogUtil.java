@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 
 public class BaseLogUtil {
-    private static Toast toast = null;
 
     public static void logLifeCycle(String TAG, String message){
         Log.d(TAG, message);
@@ -51,27 +50,5 @@ public class BaseLogUtil {
         } else {
             Log.e(TAG, message);
         }
-    }
-
-    @SuppressLint("ShowToast")
-    public static void showToast(Context mContext, String text) {
-        if (toast == null) {
-            toast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
-        } else {
-            toast.setText(text);
-        }
-
-        toast.show();
-    }
-
-    @SuppressLint("ShowToast")
-    public static void showToast(Context mContext, int textRid) {
-        if (toast == null) {
-            toast = Toast.makeText(mContext, textRid, Toast.LENGTH_SHORT);
-        } else {
-            toast.setText(textRid);
-        }
-
-        toast.show();
     }
 }

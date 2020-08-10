@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyLedger</string>
+    <string name="today_balance">本日收支平衡: %d</string>
+    <string name="total_income">收入: %d</string>
+    <string name="total_expenditure">支出: %d</string>
+    <string name="this_month_balance">本月收支平衡: %d</string>
+    <string name="this_year_balance">本年度收支平衡: %d</string>
 </resources>

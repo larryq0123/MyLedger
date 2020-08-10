@@ -7,11 +7,11 @@ class LedgerApp: Application() {
 
     companion object {
         const val APP_NAME = "MyLedger"
-        var appContext: Context? = null
+        lateinit var appContext: Context
     }
 
     override fun onCreate() {
         super.onCreate()
-        appContext = applicationContext
+        appContext = this
     }
 }

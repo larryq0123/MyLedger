@@ -18,18 +18,15 @@ class LedgerCategoryTest {
 
     @Before
     fun setUp() {
-        ManagerFactory.context = RuntimeEnvironment.application
-        ledgerManager = ManagerFactory.getLedgerManager()
+        ledgerManager = ManagerFactory
+            .getInstance(RuntimeEnvironment.application).getLedgerManager()
         ledgerManager.insertBasicCategories()
     }
 
     @After
     fun tearDown(){
-        if(ManagerFactory.db?.isOpen == true){
-            ManagerFactory.db?.close()
-            ManagerFactory.db = null
-            ManagerFactory.mLedgerManager = null
-        }
+        ManagerFactory.getInstance(RuntimeEnvironment.application)
+            .closeDB()
     }
 
     @Test
@@ -56,7 +53,9 @@ class LedgerCategoryTest {
         val categories = ledgerManager.getAllCategories()
         assertNotNull(categories.find { it.name == "c1" })
         assertNotNull(categories.find { it.name == "c2" })
-        assertNotNull(categories.find { it.name == "c3" && it.type == Category.TYPE_INCOME })
+        assertNotNull(categories.find {
+            it.name == "c3" && !it.isExpenditure()
+        })
     }
 
     @Test

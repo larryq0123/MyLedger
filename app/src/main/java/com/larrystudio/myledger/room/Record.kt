@@ -1,9 +1,6 @@
 package com.larrystudio.myledger.room
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = Record.TABLE_NAME,
     indices = [Index(value = ["categoryID"], name = "i_category"),
@@ -21,6 +18,8 @@ class Record {
     var createTimestamp: Long = 0
 
     var categoryID: Long = 0
+    @Ignore
+    var category: Category? = null
 
     var amount: Int = 0
 

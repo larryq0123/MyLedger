@@ -18,4 +18,6 @@ class Category() {
     var name: String = ""
 
     var type: Int = TYPE_EXP
+
+    fun isExpenditure() = type == TYPE_EXP
 }
