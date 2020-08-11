@@ -50,7 +50,6 @@ abstract class VeryBaseActivity: AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        transitForOldActivity()
     }
 
     override fun finish() {

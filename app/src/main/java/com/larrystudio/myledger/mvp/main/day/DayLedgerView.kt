@@ -7,7 +7,7 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator
 
 interface DayLedgerView: BaseMvpView {
     fun markToday(shouldMark: (CalendarDay) -> Boolean)
-    fun showLedgers(ledgers: List<Record>)
+    fun showRecords(records: List<Record>)
     fun showBalance(amount: Int)
-    fun openLedgerEditView(dateString: String?, ledger: Record?)
+    fun openRecordEditView(dateString: String?, record: Record?)
 }

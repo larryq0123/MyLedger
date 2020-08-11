@@ -1,16 +1,11 @@
 package com.larrystudio.myledger.mvp.main.day
 
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
-import com.larrystudio.myledger.R
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.mvp.BaseMvpView
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,7 +15,7 @@ class DayLedgerPresenterImpl(private val ledgerManager: LedgerManager):
     private var mvpView: DayLedgerView? = null
 
     private lateinit var categories: List<Category>
-    private val ledgers = ArrayList<Record>()
+    private val records = ArrayList<Record>()
     private lateinit var selectedDate: Date
 
 
@@ -29,21 +24,25 @@ class DayLedgerPresenterImpl(private val ledgerManager: LedgerManager):
         categories = ledgerManager.getAllCategories()
         selectedDate = Date()
         markToday(selectedDate)
-        showLedgers(selectedDate)
+        showRecords(selectedDate)
+    }
+
+    override fun onLifeResumed() {
+        showRecords(selectedDate)
     }
 
     override fun onDateSelected(date: Date) {
         selectedDate = date
-        showLedgers(date)
+        showRecords(date)
     }
 
-    override fun onLedgerClicked(position: Int) {
-        mvpView!!.openLedgerEditView(null, ledgers[position])
+    override fun onRecordClicked(position: Int) {
+        mvpView!!.openRecordEditView(null, records[position])
     }
 
     override fun onAddClicked() {
         val dateString = DateHelper.formatDate(selectedDate)
-        mvpView!!.openLedgerEditView(dateString, null)
+        mvpView!!.openRecordEditView(dateString, null)
     }
 
     private fun markToday(date: Date){
@@ -52,11 +51,11 @@ class DayLedgerPresenterImpl(private val ledgerManager: LedgerManager):
         }
     }
 
-    private fun showLedgers(date: Date){
-        ledgers.clear()
-        ledgers.addAll(ledgerManager.loadRecordsByDate(date))
-        mvpView!!.showLedgers(ledgers)
-        mvpView!!.showBalance(ledgers.sumBy {
+    private fun showRecords(date: Date){
+        records.clear()
+        records.addAll(ledgerManager.loadRecordsByDate(date))
+        mvpView!!.showRecords(records)
+        mvpView!!.showBalance(records.sumBy {
             if(!it.category!!.isExpenditure()){
                 it.amount
             }else{

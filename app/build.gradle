@@ -44,6 +44,7 @@ dependencies {
 
 
     implementation 'com.github.prolificinteractive:material-calendarview:1.6.1'
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 
 
 

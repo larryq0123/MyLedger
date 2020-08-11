@@ -14,5 +14,6 @@
     <color name="yellow">#ffff00</color>
     <color name="brown">#8B4513</color>
 
+    <color name="blackTrans">#90000000</color>
     <!--<color name="tiffanyBlue">#BBFFEE</color>-->
 </resources>

@@ -32,30 +32,25 @@ class MainFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.showLoading()
-        compositeDisposable.add(Single.timer(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { _: Long ->
-                activity?.hideLoading()
-                viewPager.adapter = TempPagerAdapter(this)
-                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = "Page ${(position + 1)}"
-                }.attach()
-            })
+
+        viewPager.adapter = TempPagerAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when(position){
+                0 -> tab.text = "日"
+                1 -> tab.text = "月"
+                2 -> tab.text = "年"
+            }
+        }.attach()
     }
 
     class TempPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment){
         override fun getItemCount(): Int { return 3 }
         override fun createFragment(position: Int): Fragment {
-            LogUtil.logd("TempPagerAdapter", "createFragment()")
             return if(position == 0){
                 DayLedgerFragment()
             }else{
                 val fragment = TempFragment()
-                val args = Bundle().apply {
-                    putInt(ARG_OBJECT, position+1)
-                }
+                val args = Bundle().apply { putInt(ARG_OBJECT, position+1) }
                 fragment.arguments = args
                 fragment
             }

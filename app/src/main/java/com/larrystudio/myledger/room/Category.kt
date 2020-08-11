@@ -20,4 +20,9 @@ class Category() {
     var type: Int = TYPE_EXP
 
     fun isExpenditure() = type == TYPE_EXP
+    override fun toString(): String {
+        return "Category(id=$id, name='$name', type=$type)"
+    }
+
+
 }

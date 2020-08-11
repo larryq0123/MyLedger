@@ -5,8 +5,9 @@ import java.util.*
 
 interface DayLedgerPresenter: BaseMvpPresenter {
 
+    fun onLifeResumed()
     fun onDateSelected(date: Date)
-    fun onLedgerClicked(position: Int)
+    fun onRecordClicked(position: Int)
     fun onAddClicked()
 
 }

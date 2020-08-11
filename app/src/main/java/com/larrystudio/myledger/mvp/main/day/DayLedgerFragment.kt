@@ -15,7 +15,8 @@ import com.larry.larrylibrary.util.MeasureUtil
 import com.larrystudio.myledger.R
 import com.larrystudio.myledger.manager.ManagerFactory
 import com.larrystudio.myledger.mvp.BaseFragment
-import com.larrystudio.myledger.room.Category
+import com.larrystudio.myledger.mvp.recordedit.RecordEditActivity
+import com.larrystudio.myledger.mvp.recordedit.RecordEditView
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -34,7 +35,7 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
     private val ledgerClickListener by lazy {
         View.OnClickListener{
             val position = linearLedger.indexOfChild(it) - 2
-            presenter.onLedgerClicked(position)
+            presenter.onRecordClicked(position)
         }
     }
 
@@ -48,6 +49,11 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
             ManagerFactory.getInstance(activity).getLedgerManager())
         presenter.onAttach(this)
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onLifeResumed()
     }
 
     private fun initListeners(){
@@ -72,7 +78,7 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
         })
     }
 
-    override fun showLedgers(ledgers: List<Record>){
+    override fun showRecords(records: List<Record>){
         if(linearLedger.childCount > 2){
             linearLedger.removeViews(2, linearLedger.childCount-2)
         }
@@ -81,7 +87,7 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
         val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         lp.setMargins(margin, margin, margin, margin)
 
-        ledgers.forEach {
+        records.forEach {
             val ledgerView = View.inflate(activity, R.layout.view_ledger_item, null)
             ledgerView.layoutParams = lp
             val textCategory = ledgerView.findViewById<TextView>(R.id.textCategory)
@@ -101,12 +107,23 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
 
     override fun showBalance(amount: Int) {
         textBalance.text = String.format(getString(R.string.today_balance), amount)
-//        val textColor = if(amount >= 0) GlobalUtil.getColor(activity, R.color.colorIncome)
-//        else GlobalUtil.getColor(activity, R.color.colorExpenditure)
-//        textBalance.setTextColor(textColor)
+        val textColor = if(amount >= 0)
+            GlobalUtil.getColor(activity, R.color.colorIncome)
+        else GlobalUtil.getColor(activity, R.color.colorExpenditure)
+        textBalance.setTextColor(textColor)
     }
 
-    override fun openLedgerEditView(dateString: String?, ledger: Record?) {
+    override fun openRecordEditView(dateString: String?, record: Record?) {
+        val intent = Intent(activity, RecordEditActivity::class.java)
 
+        if(dateString != null){
+            intent.putExtra(RecordEditView.DATA_DATE, dateString)
+        }
+
+        if(record != null){
+            intent.putExtra(RecordEditView.DATA_LEDGER, Gson().toJson(record))
+        }
+
+        startActivity(intent)
     }
 }

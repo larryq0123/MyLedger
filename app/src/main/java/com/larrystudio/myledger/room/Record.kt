@@ -24,4 +24,7 @@ class Record {
     var amount: Int = 0
 
     var comment: String = ""
+    override fun toString(): String {
+        return "Record(id=$id, createTimestamp=$createTimestamp, categoryID=$categoryID, category=$category, amount=$amount, comment='$comment')"
+    }
 }

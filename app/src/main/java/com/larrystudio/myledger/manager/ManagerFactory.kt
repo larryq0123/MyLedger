@@ -34,7 +34,6 @@ class ManagerFactory(private val context: Context) {
     fun getLedgerManager(): LedgerManager{
         if(mLedgerManager == null){
             if(db == null){
-                LogUtil.logd("ManagerFactory", "context = $context")
                 db = Room.databaseBuilder(context!!, LedgerDB::class.java, LedgerDB.DB_NAME)
                     .allowMainThreadQueries()
                     .build()

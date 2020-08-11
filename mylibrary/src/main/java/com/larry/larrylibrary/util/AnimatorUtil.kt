@@ -2,12 +2,12 @@ package com.larry.larrylibrary.util
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.OvershootInterpolator
+import com.larry.larrylibrary.R
 import com.larry.larrylibrary.thread.ExecutorPool
-import java.lang.Exception
 
 object AnimatorUtil {
 
@@ -47,6 +47,17 @@ object AnimatorUtil {
                     listener?.onAnimationEnd()
                 }
             })
+    }
+
+    fun animateBackgroundDim(backgroundLayout: ViewGroup, reverse: Boolean) {
+        val transColor = if (reverse) R.color.blackTrans else R.color.transparent
+        val blackTransColor = if (reverse) R.color.transparent else R.color.blackTrans
+        val anim = ValueAnimator()
+        anim.setIntValues(transColor, blackTransColor)
+        anim.setEvaluator(ArgbEvaluator())
+        anim.addUpdateListener { valueAnimator -> backgroundLayout.setBackgroundColor((valueAnimator.animatedValue as Int)) }
+        anim.duration = SLIDE_ANIMATION_DURATION
+        anim.start()
     }
 
     interface SlideAnimationCallback { fun onAnimationEnd() }
