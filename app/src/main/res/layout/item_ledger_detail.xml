@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/medium_padding">
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="2019-01-10" />
+
+    <TextView
+        android:id="@+id/tagCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textDate"
+        android:layout_marginTop="@dimen/tiny_padding"
+        android:text="支出：" />
+
+    <TextView
+        android:id="@+id/textCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagCategory"
+        app:layout_constraintLeft_toRightOf="@id/tagCategory"
+        android:text="個人餐費"/>
+
+    <TextView
+        android:id="@+id/textAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagCategory"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="128"
+        android:textColor="@color/colorExpenditure"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tagComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tagCategory"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/tiny_padding"
+        android:text="備註："/>
+
+    <TextView
+        android:id="@+id/textComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagComment"
+        app:layout_constraintLeft_toRightOf="@id/tagComment"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.6"
+        android:text="早餐" />
+</androidx.constraintlayout.widget.ConstraintLayout>

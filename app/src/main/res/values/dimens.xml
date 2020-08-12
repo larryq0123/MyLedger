@@ -24,4 +24,6 @@
     //MainActivity
     <dimen name="menu_icon_size">32dp</dimen>
     <dimen name="navigation_width">240dp</dimen>
+
+    <dimen name="stat_icon_size">40dp</dimen>
 </resources>
