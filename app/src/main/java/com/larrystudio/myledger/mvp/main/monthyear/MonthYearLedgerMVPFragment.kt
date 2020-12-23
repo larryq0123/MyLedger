@@ -1,6 +1,5 @@
 package com.larrystudio.myledger.mvp.main.monthyear
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,16 +12,17 @@ import com.larry.larrylibrary.util.AnimatorUtil
 import com.larry.larrylibrary.util.GlobalUtil
 import com.larry.larrylibrary.util.MeasureUtil
 import com.larrystudio.myledger.R
+import com.larrystudio.myledger.adapters.LedgerDetailAdapter
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.manager.ManagerFactory
-import com.larrystudio.myledger.mvp.BaseFragment
+import com.larrystudio.myledger.mvp.BaseMVPFragment
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_month_ledger.*
 import java.util.*
 
-class MonthYearLedgerFragment: BaseFragment(), MonthYearLedgerView {
+class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
 
     companion object {
         const val LEDGER_TYPE = "ledger_type"
@@ -30,8 +30,8 @@ class MonthYearLedgerFragment: BaseFragment(), MonthYearLedgerView {
         const val TYPE_MONTH = "month"
         const val TYPE_YEAR = "year"
 
-        fun getInstance(type: String): MonthYearLedgerFragment{
-            val fragment = MonthYearLedgerFragment()
+        fun getInstance(type: String): MonthYearLedgerMVPFragment{
+            val fragment = MonthYearLedgerMVPFragment()
             val bundle = Bundle()
             bundle.putString(LEDGER_TYPE, type)
             fragment.arguments = bundle
@@ -172,7 +172,8 @@ class MonthYearLedgerFragment: BaseFragment(), MonthYearLedgerView {
         relativeDetails.visibility = View.VISIBLE
         textTitle.text = category.name
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapterLedger = LedgerDetailAdapter(ledgerManager)
+        adapterLedger =
+            LedgerDetailAdapter(ledgerManager)
         recyclerView.adapter = adapterLedger
         adapterLedger.refreshLedgers(ledgers)
 

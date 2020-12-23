@@ -1,11 +1,10 @@
 package com.larrystudio.myledger.mvp
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.larrystudio.myledger.R
 import com.larrystudio.myledger.manager.ManagerFactory
-import com.larrystudio.myledger.mvp.main.MainActivity
+import com.larrystudio.myledger.mvp.main.MainMVPActivity
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -13,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("CheckResult")
-class SplashActivity : BaseActivity() {
+class SplashMVPActivity : BaseMVPActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,7 @@ class SplashActivity : BaseActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _: Long ->
-                goPage(MainActivity::class.java, true)
+                goPage(MainMVPActivity::class.java, true)
             }
     }
 }

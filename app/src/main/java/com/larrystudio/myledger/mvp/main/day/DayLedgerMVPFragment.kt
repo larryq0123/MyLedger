@@ -14,8 +14,8 @@ import com.larry.larrylibrary.util.GlobalUtil
 import com.larry.larrylibrary.util.MeasureUtil
 import com.larrystudio.myledger.R
 import com.larrystudio.myledger.manager.ManagerFactory
-import com.larrystudio.myledger.mvp.BaseFragment
-import com.larrystudio.myledger.mvp.recordedit.RecordEditActivity
+import com.larrystudio.myledger.mvp.BaseMVPFragment
+import com.larrystudio.myledger.mvp.recordedit.RecordEditMVPActivity
 import com.larrystudio.myledger.mvp.recordedit.RecordEditView
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
@@ -24,7 +24,7 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import kotlinx.android.synthetic.main.fragment_day_ledger.*
 
-class DayLedgerFragment: BaseFragment(), DayLedgerView {
+class DayLedgerMVPFragment: BaseMVPFragment(), DayLedgerView {
 
     private val drawableToday: Drawable by lazy {
         ContextCompat.getDrawable(activity!!, R.drawable.bg_today)!!
@@ -114,7 +114,7 @@ class DayLedgerFragment: BaseFragment(), DayLedgerView {
     }
 
     override fun openRecordEditView(dateString: String?, record: Record?) {
-        val intent = Intent(activity, RecordEditActivity::class.java)
+        val intent = Intent(activity, RecordEditMVPActivity::class.java)
 
         if(dateString != null){
             intent.putExtra(RecordEditView.DATA_DATE, dateString)

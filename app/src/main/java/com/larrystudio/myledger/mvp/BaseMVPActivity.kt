@@ -4,7 +4,7 @@ import android.view.View
 import com.larry.larrylibrary.base.VeryBaseActivity
 import com.larry.larrylibrary.extension.*
 
-abstract class BaseActivity: VeryBaseActivity(), BaseMvpView {
+abstract class BaseMVPActivity: VeryBaseActivity(), BaseMvpView {
 
     override fun showProgress() { showLoading() }
 

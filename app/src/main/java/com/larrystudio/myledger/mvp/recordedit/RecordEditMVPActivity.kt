@@ -7,13 +7,13 @@ import com.larry.larrylibrary.util.GlobalUtil
 import com.larrystudio.myledger.R
 import com.larrystudio.myledger.customview.WheelDatePicker
 import com.larrystudio.myledger.manager.ManagerFactory
-import com.larrystudio.myledger.mvp.BaseActivity
+import com.larrystudio.myledger.mvp.BaseMVPActivity
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.LogUtil
 import kotlinx.android.synthetic.main.activity_record_edit.*
 
-class RecordEditActivity : BaseActivity(), RecordEditView {
+class RecordEditMVPActivity : BaseMVPActivity(), RecordEditView {
 
 
     private lateinit var presenter: RecordEditPresenter

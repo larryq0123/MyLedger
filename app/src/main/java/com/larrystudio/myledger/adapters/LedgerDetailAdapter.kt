@@ -1,4 +1,4 @@
-package com.larrystudio.myledger.mvp.main.monthyear
+package com.larrystudio.myledger.adapters
 
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +24,9 @@ class LedgerDetailAdapter(private val ledgerManager: LedgerManager):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LedgerHolder {
         val view = View.inflate(parent.context, R.layout.item_ledger_detail, null)
         view.layoutParams = defaultLP()
-        return LedgerHolder(view)
+        return LedgerHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {

@@ -5,7 +5,7 @@ import com.larry.larrylibrary.base.VeryBaseFragment
 import com.larry.larrylibrary.extension.*
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseFragment: VeryBaseFragment(), BaseMvpView {
+abstract class BaseMVPFragment: VeryBaseFragment(), BaseMvpView {
 
     protected val compositeDisposable by lazy { CompositeDisposable() }
 

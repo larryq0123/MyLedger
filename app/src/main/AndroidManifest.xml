@@ -3,19 +3,28 @@
     package="com.larrystudio.myledger">
 
     <application
+        android:name=".LedgerApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_coins"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.recordedit.RecordEditActivity" />
-        <activity android:name=".mvp.main.MainActivity" />
-        <activity android:name=".mvp.SplashActivity">
+        <activity android:name=".mvvm.main.MainMVVMActivity" android:screenOrientation="portrait" />
+        <activity android:name=".mvvm.splash.SplashMVVMActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".mvp.recordedit.RecordEditMVPActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".mvp.main.MainMVPActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".mvp.SplashMVPActivity" android:screenOrientation="portrait">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 

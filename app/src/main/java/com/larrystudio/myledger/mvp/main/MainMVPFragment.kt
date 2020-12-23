@@ -4,24 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.larry.larrylibrary.extension.hideLoading
-import com.larry.larrylibrary.extension.showLoading
 import com.larrystudio.myledger.R
-import com.larrystudio.myledger.mvp.BaseFragment
-import com.larrystudio.myledger.mvp.main.day.DayLedgerFragment
-import com.larrystudio.myledger.mvp.main.monthyear.MonthYearLedgerFragment
-import com.larrystudio.myledger.util.LogUtil
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.larrystudio.myledger.mvp.BaseMVPFragment
+import com.larrystudio.myledger.mvp.main.day.DayLedgerMVPFragment
+import com.larrystudio.myledger.mvp.main.monthyear.MonthYearLedgerMVPFragment
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.util.concurrent.TimeUnit
 
-class MainFragment: BaseFragment() {
+class MainMVPFragment: BaseMVPFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -44,9 +36,9 @@ class MainFragment: BaseFragment() {
         override fun getItemCount(): Int { return 3 }
         override fun createFragment(position: Int): Fragment {
             return when(position){
-                0 -> DayLedgerFragment()
-                1 -> MonthYearLedgerFragment.getInstance(MonthYearLedgerFragment.TYPE_MONTH)
-                else -> MonthYearLedgerFragment.getInstance(MonthYearLedgerFragment.TYPE_YEAR)
+                0 -> DayLedgerMVPFragment()
+                1 -> MonthYearLedgerMVPFragment.getInstance(MonthYearLedgerMVPFragment.TYPE_MONTH)
+                else -> MonthYearLedgerMVPFragment.getInstance(MonthYearLedgerMVPFragment.TYPE_YEAR)
             }
         }
     }
