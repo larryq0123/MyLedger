@@ -1,4 +1,4 @@
-package com.larrystudio.myledger.mvp.main.monthyear
+package com.larrystudio.myledger.mvvm.main.year
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.larry.larrylibrary.util.AnimatorUtil
 import com.larry.larrylibrary.util.GlobalUtil
@@ -15,57 +17,32 @@ import com.larrystudio.myledger.R
 import com.larrystudio.myledger.adapters.LedgerDetailAdapter
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.manager.ManagerFactory
-import com.larrystudio.myledger.mvp.BaseMVPFragment
+import com.larrystudio.myledger.mvp.main.monthyear.MonthLedgerPresenterImpl
+import com.larrystudio.myledger.mvp.main.monthyear.MonthYearLedgerMVPFragment
+import com.larrystudio.myledger.mvp.main.monthyear.MonthYearLedgerPresenter
+import com.larrystudio.myledger.mvp.main.monthyear.YearLedgerPresenterImpl
+import com.larrystudio.myledger.mvvm.BaseMVVMFragment
+import com.larrystudio.myledger.mvvm.ViewModelFactory
+import com.larrystudio.myledger.mvvm.main.month.MonthLedgerViewModel
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_month_ledger.*
-import java.util.*
+import java.util.ArrayList
+import java.util.HashMap
 
-class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
+class YearLedgerMVVMFragment: BaseMVVMFragment() {
 
-    companion object {
-        const val LEDGER_TYPE = "ledger_type"
-        const val LEDGER_TIMESTAMP = "timestamp"
-        const val TYPE_MONTH = "month"
-        const val TYPE_YEAR = "year"
-
-        fun getInstance(type: String): MonthYearLedgerMVPFragment{
-            val fragment = MonthYearLedgerMVPFragment()
-            val bundle = Bundle()
-            bundle.putString(LEDGER_TYPE, type)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
-
+    private lateinit var viewModel: YearLedgerViewModel
     private lateinit var adapterLedger: LedgerDetailAdapter
-
-    private val presenter: MonthYearLedgerPresenter by lazy {
-        val type = arguments!!.getString(LEDGER_TYPE)
-        val ledgerManager = ManagerFactory.getInstance(activity).getLedgerManager()
-
-        return@lazy if(type == TYPE_MONTH){
-            MonthLedgerPresenterImpl(ledgerManager)
-        }else{
-            YearLedgerPresenterImpl(ledgerManager)
-        }
-    }
 
     private val monthList by lazy { ArrayList<TextView>() }
     private val categoryViewMap by lazy { HashMap<Category, View>() }
-    private val monthChooseListener by lazy {
-        View.OnClickListener{
-            val year = textYear.text.toString().toInt()
-            val month = it.tag.toString().toInt()
-            presenter.onYearMonthSelected(year, month)
-        }
-    }
 
     private val categoryClickListener by lazy {
         View.OnClickListener{
             val category = it.tag as Category
-            presenter.onCategoryClicked(category)
+            viewModel.onCategoryClicked(category)
         }
     }
 
@@ -75,14 +52,40 @@ class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
         groupTextMonths()
-        presenter.onAttach(this)
+        viewModel.onCreateLifeCycle()
         initListeners()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.onLifeStarted()
+        viewModel.onStartLifeCycle()
+    }
+
+    override fun onBackPressed(): Boolean {
+        return viewModel.onBackPressed()
+    }
+
+    override fun initViewModel() {
+        val factory = ViewModelFactory()
+        viewModel = ViewModelProvider(activity!!, factory).get(YearLedgerViewModel::class.java)
+        doBasicSubscription(viewModel)
+        viewModel.ldYear.observe(viewLifecycleOwner, Observer {
+            textYear.text = it.toString()
+            linearMonth1.visibility = View.GONE
+            linearMonth2.visibility = View.GONE
+        })
+        viewModel.ldCategoryRecordsBean.observe(viewLifecycleOwner, Observer {
+            if(it == null) hideCategoryDetails()
+            else showCategoryDetails(it.category, it.records)
+        })
+        viewModel.ldCategorySummaryBean.observe(viewLifecycleOwner, Observer { summaries ->
+            summaries.forEach { showCategorySummary(it.category, it.recordCount, it.totalAmount) }
+        })
+        viewModel.ldBalanceBean.observe(viewLifecycleOwner, Observer {
+            showBalance(it.income, it.expenditure, it.balance)
+        })
     }
 
     private fun groupTextMonths(){
@@ -103,44 +106,17 @@ class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
 
     private fun initListeners(){
         imageArrowLeft.setOnClickListener {
-            presenter.onYearChangeClicked(textYear.text.toString(), false)
+            viewModel.onYearChangeClicked(textYear.text.toString(), false)
         }
 
         imageArrowRight.setOnClickListener {
-            presenter.onYearChangeClicked(textYear.text.toString(), true)
-        }
-
-        monthList.forEachIndexed { index, textView ->
-            textView.tag = index+1
-            textView.setOnClickListener(monthChooseListener)
+            viewModel.onYearChangeClicked(textYear.text.toString(), true)
         }
 
         relativeDetails.setOnClickListener { /* just to prevent views from being clicked */ }
     }
 
-    override fun hideMonthArea() {
-        linearMonth1.visibility = View.GONE
-        linearMonth2.visibility = View.GONE
-    }
-
-    override fun selectYear(year: Int) {
-        textYear.text = year.toString()
-    }
-
-    override fun selectYearMonth(year: Int, month: Int) {
-        textYear.text = year.toString()
-        val textColor = GlobalUtil.getColor(activity, R.color.almostBlack)
-        monthList.forEach {
-            it.setTextColor(textColor)
-        }
-
-        if(month > 0){
-            val selectedTextColor = GlobalUtil.getColor(activity, R.color.colorPrimaryDark)
-            monthList[month-1].setTextColor(selectedTextColor)
-        }
-    }
-
-    override fun showBalance(income: Int , expenditure: Int, balance: Int) {
+    private fun showBalance(income: Int , expenditure: Int, balance: Int) {
         val rawIncome = getString(R.string.total_income)
         val incomeString = String.format(rawIncome, income)
         val rawExp = getString(R.string.total_expenditure)
@@ -153,7 +129,7 @@ class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
         textBalance.text = balanceString
     }
 
-    override fun showCategorySummary(category: Category, recordCount: Int, totalAmount: Int) {
+    private fun showCategorySummary(category: Category, recordCount: Int, totalAmount: Int) {
         LogUtil.logd(TAG, "showCategorySummary, $category, $recordCount, $totalAmount")
         if (categoryViewMap[category] == null){
             categoryViewMap[category] = generateCategoryCards(category)
@@ -163,11 +139,7 @@ class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
         setCategoryData(categoryViewMap[category]!!, category, recordCount, totalAmount)
     }
 
-    override fun isCategoryDetailsShown(): Boolean {
-        return relativeDetails.visibility == View.VISIBLE
-    }
-
-    override fun showCategoryDetails(category: Category, ledgers: List<Record>) {
+    private fun showCategoryDetails(category: Category, ledgers: List<Record>) {
         relativeDetails.visibility = View.VISIBLE
         textTitle.text = category.name
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -189,17 +161,13 @@ class MonthYearLedgerMVPFragment: BaseMVPFragment(), MonthYearLedgerView {
         }
     }
 
-    override fun hideCategoryDetails() {
+    private fun hideCategoryDetails() {
         if(relativeDetails.visibility == View.VISIBLE)
             AnimatorUtil.slideVertically(relativeDetails, 0f,
                 relativeDetails.height.toFloat(),
                 object: AnimatorUtil.SlideAnimationCallback{
                     override fun onAnimationEnd() { relativeDetails.visibility = View.GONE }
                 })
-    }
-
-    override fun openLedgerEditView(dateString: String?, ledger: Record?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun generateCategoryCards(category: Category): View{

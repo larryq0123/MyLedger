@@ -29,7 +29,6 @@ import java.util.HashMap
 class MonthLedgerMVVMFragment: BaseMVVMFragment() {
 
     private lateinit var viewModel: MonthLedgerViewModel
-    private lateinit var ledgerManager: LedgerManager
     private lateinit var adapterLedger: LedgerDetailAdapter
 
     private val monthList by lazy { ArrayList<TextView>() }
@@ -57,7 +56,6 @@ class MonthLedgerMVVMFragment: BaseMVVMFragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         groupTextMonths()
-        ledgerManager = ManagerFactory.getInstance(activity).getLedgerManager()
         viewModel.onCreateLifeCycle()
         initListeners()
     }
@@ -143,7 +141,7 @@ class MonthLedgerMVVMFragment: BaseMVVMFragment() {
         val incomeString = String.format(rawIncome, income)
         val rawExp = getString(R.string.total_expenditure)
         val expString = String.format(rawExp, expenditure)
-        val rawBalance = getString(R.string.this_year_balance)
+        val rawBalance = getString(R.string.this_month_balance)
         val balanceString = String.format(rawBalance, balance)
 
         textIncome.text = incomeString
@@ -165,8 +163,7 @@ class MonthLedgerMVVMFragment: BaseMVVMFragment() {
         relativeDetails.visibility = View.VISIBLE
         textTitle.text = category.name
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapterLedger =
-            LedgerDetailAdapter(ledgerManager)
+        adapterLedger = LedgerDetailAdapter()
         recyclerView.adapter = adapterLedger
         adapterLedger.refreshLedgers(ledgers)
 

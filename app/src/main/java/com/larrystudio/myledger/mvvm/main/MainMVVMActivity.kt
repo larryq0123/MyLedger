@@ -11,6 +11,7 @@ import com.larrystudio.myledger.mvvm.BaseMVVMFragment
 import com.larrystudio.myledger.mvvm.ViewModelFactory
 import com.larrystudio.myledger.mvvm.main.day.DayLedgerMVVMFragment
 import com.larrystudio.myledger.mvvm.main.month.MonthLedgerMVVMFragment
+import com.larrystudio.myledger.mvvm.main.year.YearLedgerMVVMFragment
 import kotlinx.android.synthetic.main.activity_main_mvvm.*
 
 class MainMVVMActivity : BaseMVVMActivity() {
@@ -18,6 +19,7 @@ class MainMVVMActivity : BaseMVVMActivity() {
     private lateinit var currentFragment: BaseMVVMFragment
     private val dayFragment by lazy { DayLedgerMVVMFragment() }
     private val monthFragment by lazy { MonthLedgerMVVMFragment() }
+    private val yearFragment by lazy { YearLedgerMVVMFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +83,10 @@ class MainMVVMActivity : BaseMVVMActivity() {
 
     private fun openYearLedger(){
         supportActionBar?.title = "年度總結"
-
+        currentFragment = yearFragment
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameContent, yearFragment)
+            .commit()
     }
 
     override fun onBackPressed() {

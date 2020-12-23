@@ -12,8 +12,7 @@ import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
 import java.util.*
 
-class LedgerDetailAdapter(private val ledgerManager: LedgerManager):
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LedgerDetailAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var ledgerList = ArrayList<Record>()
 
