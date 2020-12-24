@@ -8,6 +8,7 @@ import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.mvvm.BaseViewModel
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
+import com.larrystudio.myledger.util.LogUtil
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -68,7 +69,7 @@ class MonthLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMo
         if(recordByCategory.isNullOrEmpty()){
             ldToast.value = "指定的分類沒有任何紀錄"
         }else {
-            ldCategoryRecordsBean.value = CategoryRecordsBean(category, records)
+            ldCategoryRecordsBean.value = CategoryRecordsBean(category, recordByCategory)
         }
     }
 

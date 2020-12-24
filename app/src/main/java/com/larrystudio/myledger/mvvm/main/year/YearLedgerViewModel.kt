@@ -57,7 +57,7 @@ class YearLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMod
         if(ledgerByCategory.isNullOrEmpty()){
             ldToast.value = "指定的分類沒有任何紀錄"
         }else {
-            ldCategoryRecordsBean.value = CategoryRecordsBean(category, ledgers)
+            ldCategoryRecordsBean.value = CategoryRecordsBean(category, ledgerByCategory)
         }
     }
 

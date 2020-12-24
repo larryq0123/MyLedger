@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel: ViewModel() {
-
+    protected val TAG = javaClass.simpleName
     protected val compositeDisposable by lazy { CompositeDisposable() }
     val ldToast = MutableLiveData<String>()
     val ldLoading = MutableLiveData<Boolean>()

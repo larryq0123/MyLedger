@@ -42,26 +42,25 @@ class MainMVVMActivity : BaseMVVMActivity() {
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener {
             drawerLayout.closeDrawer(GravityCompat.START)
-            when (it.itemId) {
+            return@setNavigationItemSelectedListener when (it.itemId) {
                 R.id.action_day_ledger -> {
                     openDayLedger()
-                    return@setNavigationItemSelectedListener true
+                    true
                 }
                 R.id.action_month_ledger -> {
                     openMonthLedger()
-                    return@setNavigationItemSelectedListener true
+                    true
                 }
                 R.id.action_year_ledger -> {
                     openYearLedger()
-                    return@setNavigationItemSelectedListener true
+                    true
                 }
                 R.id.action_category -> {
                     showToast("open Category")
-                    return@setNavigationItemSelectedListener true
+                    true
                 }
+                else -> false
             }
-
-            return@setNavigationItemSelectedListener false
         }
     }
 

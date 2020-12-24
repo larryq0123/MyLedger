@@ -9,22 +9,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvvm.main.MainMVVMActivity" android:screenOrientation="portrait" />
-        <activity android:name=".mvvm.splash.SplashMVVMActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".mvvm.recordedit.RecordEditMVVMActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvvm.main.MainMVVMActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvvm.splash.SplashMVVMActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.recordedit.RecordEditMVPActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".mvp.main.MainMVPActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".mvp.SplashMVPActivity" android:screenOrientation="portrait">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+        <activity
+            android:name=".mvp.recordedit.RecordEditMVPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.main.MainMVPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.SplashMVPActivity"
+            android:screenOrientation="portrait">
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

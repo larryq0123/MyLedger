@@ -10,6 +10,7 @@ import com.larrystudio.myledger.mvvm.main.day.DayLedgerViewModel
 import com.larrystudio.myledger.mvvm.main.MainViewModel
 import com.larrystudio.myledger.mvvm.main.month.MonthLedgerViewModel
 import com.larrystudio.myledger.mvvm.main.year.YearLedgerViewModel
+import com.larrystudio.myledger.mvvm.recordedit.RecordEditViewModel
 import com.larrystudio.myledger.mvvm.splash.SplashViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -38,6 +39,10 @@ class ViewModelFactory: ViewModelProvider.Factory {
             modelClass.isAssignableFrom(YearLedgerViewModel::class.java) ->{
                 val ledgerManager = getLedgerManager()
                 return YearLedgerViewModel(ledgerManager) as T
+            }
+            modelClass.isAssignableFrom(RecordEditViewModel::class.java) ->{
+                val ledgerManager = getLedgerManager()
+                return RecordEditViewModel(ledgerManager) as T
             }
         }
 
