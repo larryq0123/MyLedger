@@ -1,5 +1,6 @@
 package com.larrystudio.myledger.mvvm.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -9,10 +10,15 @@ import com.larrystudio.myledger.R
 import com.larrystudio.myledger.mvvm.BaseMVVMActivity
 import com.larrystudio.myledger.mvvm.BaseMVVMFragment
 import com.larrystudio.myledger.mvvm.ViewModelFactory
+import com.larrystudio.myledger.mvvm.category.CategoryManageActivity
 import com.larrystudio.myledger.mvvm.main.day.DayLedgerMVVMFragment
 import com.larrystudio.myledger.mvvm.main.month.MonthLedgerMVVMFragment
 import com.larrystudio.myledger.mvvm.main.year.YearLedgerMVVMFragment
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main_mvvm.*
+import java.util.concurrent.TimeUnit
 
 class MainMVVMActivity : BaseMVVMActivity() {
 
@@ -20,6 +26,8 @@ class MainMVVMActivity : BaseMVVMActivity() {
     private val dayFragment by lazy { DayLedgerMVVMFragment() }
     private val monthFragment by lazy { MonthLedgerMVVMFragment() }
     private val yearFragment by lazy { YearLedgerMVVMFragment() }
+    private var confirmToFinish = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +64,8 @@ class MainMVVMActivity : BaseMVVMActivity() {
                     true
                 }
                 R.id.action_category -> {
-                    showToast("open Category")
-                    true
+                    goPage(CategoryManageActivity::class.java, false)
+                    false
                 }
                 else -> false
             }
@@ -65,7 +73,7 @@ class MainMVVMActivity : BaseMVVMActivity() {
     }
 
     private fun openDayLedger(){
-        supportActionBar?.title = "每日記帳"
+        supportActionBar?.title = getString(R.string.daily_ledger)
         currentFragment = dayFragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameContent, dayFragment)
@@ -73,7 +81,7 @@ class MainMVVMActivity : BaseMVVMActivity() {
     }
 
     private fun openMonthLedger(){
-        supportActionBar?.title = "每月統計"
+        supportActionBar?.title = getString(R.string.month_ledger)
         currentFragment = monthFragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameContent, monthFragment)
@@ -81,16 +89,25 @@ class MainMVVMActivity : BaseMVVMActivity() {
     }
 
     private fun openYearLedger(){
-        supportActionBar?.title = "年度總結"
+        supportActionBar?.title = getString(R.string.year_ledger)
         currentFragment = yearFragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameContent, yearFragment)
             .commit()
     }
 
+    @SuppressLint("CheckResult")
     override fun onBackPressed() {
         if(!currentFragment.onBackPressed()){
-            super.onBackPressed()
+            if(confirmToFinish){
+                super.onBackPressed()
+            }else{
+                confirmToFinish = true
+                showToast("再點擊一次返回以退出app")
+                Completable.timer(1200, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe { confirmToFinish = false }
+            }
         }
     }
 }

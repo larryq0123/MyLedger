@@ -73,8 +73,6 @@ abstract class VeryBaseActivity: AppCompatActivity() {
     protected fun goPage(intent: Intent, isFinish: Boolean) {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
-        transitForNewActivity()
-
         if (isFinish)
             finish()
     }

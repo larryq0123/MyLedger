@@ -22,7 +22,7 @@
         android:id="@+id/textCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="分類設定"
+        android:text="@string/category_manage"
         android:textSize="@dimen/large_text_size"
         android:padding="@dimen/small_padding" />
 

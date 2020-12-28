@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/medium_padding"
+    android:paddingRight="@dimen/medium_padding"
+    android:paddingTop="@dimen/medium_padding"
+    android:paddingBottom="@dimen/medium_padding">
+    <TextView
+        android:id="@+id/tagName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="名稱："
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagName"
+        app:layout_constraintLeft_toRightOf="@id/tagName"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        tools:text="個人餐費"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tagType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagName"
+        app:layout_constraintLeft_toRightOf="@id/textName"
+        android:layout_marginLeft="@dimen/large_padding"
+        android:text="種類："
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagType"
+        app:layout_constraintLeft_toRightOf="@id/tagType"
+        tools:text="@string/expenditure"
+        android:textColor="@color/colorExpenditure"/>
+
+    <TextView
+        android:id="@+id/textTotalCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tagName"
+        app:layout_constraintLeft_toLeftOf="@id/tagName"
+        android:layout_marginTop="@dimen/small_padding"
+        tools:text="共有21筆記錄"
+        android:textSize="12sp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

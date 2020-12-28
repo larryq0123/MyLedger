@@ -1,11 +1,19 @@
 <resources>
     <string name="app_name">MyLedger</string>
+    <string name="income">收入</string>
+    <string name="expenditure">支出</string>
     <string name="today_balance">本日收支平衡: %d</string>
     <string name="total_income">收入: %d</string>
     <string name="total_expenditure">支出: %d</string>
     <string name="this_month_balance">本月收支平衡: %d</string>
     <string name="this_year_balance">本年度收支平衡: %d</string>
+    <string name="category_record_count">共有%d筆紀錄</string>
 
     <string name="drawer_open">側選單開啟</string>
     <string name="drawer_close">側選單關閉</string>
+
+    <string name="daily_ledger">每日記帳</string>
+    <string name="month_ledger">每月統計</string>
+    <string name="year_ledger">年度總結</string>
+    <string name="category_manage">分類管理</string>
 </resources>

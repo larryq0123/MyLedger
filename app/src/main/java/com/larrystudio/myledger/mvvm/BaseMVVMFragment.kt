@@ -11,8 +11,8 @@ abstract class BaseMVVMFragment: VeryBaseFragment() {
     protected abstract fun initViewModel()
 
     protected fun doBasicSubscription(viewModel: BaseViewModel){
-        viewModel.ldToast.observe(viewLifecycleOwner, Observer { activity?.showToast(it) })
-        viewModel.ldLoading.observe(viewLifecycleOwner, Observer { toShow ->
+        viewModel.ldToast.observe(viewLifecycleOwner, EventObserver { activity?.showToast(it) })
+        viewModel.ldLoading.observe(viewLifecycleOwner, EventObserver { toShow ->
             if(toShow) activity?.showLoading()
                 else activity?.hideLoading()
         })

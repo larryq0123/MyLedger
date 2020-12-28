@@ -6,6 +6,7 @@ import com.larrystudio.myledger.beans.TempRecord
 import com.larrystudio.myledger.customview.WheelDatePicker
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.mvvm.BaseViewModel
+import com.larrystudio.myledger.mvvm.Event
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
@@ -74,7 +75,7 @@ class RecordEditViewModel(private val ledgerManager: LedgerManager): BaseViewMod
 
     private fun saveRecord(tempRecord: TempRecord, finishAfterAction: Boolean): Boolean{
         if(tempRecord.amount.isEmpty() || tempRecord.amount == "0"){
-            ldToast.value = "請填寫金額"
+            showShortToast("請填寫金額")
             return false
         }
 
@@ -85,11 +86,11 @@ class RecordEditViewModel(private val ledgerManager: LedgerManager): BaseViewMod
 
         if(this.record == null){
             ledgerManager.insertRecord(record, tempRecord.date)
-            ldToast.value = "儲存成功"
+            showShortToast("儲存成功")
         }else{
             record.id = this.record!!.id
             ledgerManager.updateRecord(record, tempRecord.date)
-            ldToast.value = "修改成功"
+            showShortToast("修改成功")
         }
 
         return true

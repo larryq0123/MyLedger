@@ -20,6 +20,7 @@ import com.larrystudio.myledger.R
 import com.larrystudio.myledger.mvp.recordedit.RecordEditMVPActivity
 import com.larrystudio.myledger.mvp.recordedit.RecordEditView
 import com.larrystudio.myledger.mvvm.BaseMVVMFragment
+import com.larrystudio.myledger.mvvm.EventObserver
 import com.larrystudio.myledger.mvvm.ViewModelFactory
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
@@ -72,8 +73,7 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         val factory = ViewModelFactory()
         viewModel = ViewModelProvider(activity!!, factory).get(DayLedgerViewModel::class.java)
         doBasicSubscription(viewModel)
-        viewModel.ldNavigate.observe(viewLifecycleOwner, Observer {
-            LogUtil.logd(TAG, "viewModel.ldNavigate, event = $it")
+        viewModel.ldNavigate.observe(viewLifecycleOwner, EventObserver{
             openRecordEditView(it.date, it.record)
         })
         viewModel.ldRecords.observe(viewLifecycleOwner, Observer { showRecords(it) })

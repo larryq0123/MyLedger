@@ -71,6 +71,10 @@ class LedgerManager(private val categoryDao: CategoryDao,
                 && it.isExpenditure() } != null
     }
 
+    fun getRecordCountByCategory(category: Category): Int{
+        return recordDao.getRecordCountByCategory(category.id!!)
+    }
+
     private fun findCategory(categories: List<Category>, cid: Long): Category?{
         return categories.find { it.id == cid }
     }

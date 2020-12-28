@@ -18,6 +18,7 @@ class Record {
     var createTimestamp: Long = 0
 
     var categoryID: Long = 0
+
     @Ignore
     var category: Category? = null
 

@@ -6,6 +6,7 @@ import com.larrystudio.myledger.beans.CategoryRecordsBean
 import com.larrystudio.myledger.beans.CategorySummaryBean
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.mvvm.BaseViewModel
+import com.larrystudio.myledger.mvvm.Event
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.LogUtil
@@ -67,7 +68,7 @@ class MonthLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMo
     fun onCategoryClicked(category: Category) {
         val recordByCategory = records.filter { it.categoryID == category.id }
         if(recordByCategory.isNullOrEmpty()){
-            ldToast.value = "指定的分類沒有任何紀錄"
+            showShortToast("指定的分類沒有任何紀錄")
         }else {
             ldCategoryRecordsBean.value = CategoryRecordsBean(category, recordByCategory)
         }

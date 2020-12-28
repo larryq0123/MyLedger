@@ -5,21 +5,21 @@
             android:id="@+id/action_day_ledger"
             android:checked="true"
             android:icon="@drawable/ic_day_ledger"
-            android:title="每日記帳" />
+            android:title="@string/daily_ledger" />
 
         <item
             android:id="@+id/action_month_ledger"
             android:icon="@drawable/ic_month_ledger"
-            android:title="每月統計" />
+            android:title="@string/month_ledger" />
 
         <item
             android:id="@+id/action_year_ledger"
             android:icon="@drawable/ic_year_ledger"
-            android:title="年度總結" />
+            android:title="@string/year_ledger" />
 
         <item
             android:id="@+id/action_category"
             android:icon="@drawable/ic_category"
-            android:title="編輯分類" />
+            android:title="@string/category_manage" />
     </group>
 </menu>

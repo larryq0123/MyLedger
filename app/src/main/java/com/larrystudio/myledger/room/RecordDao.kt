@@ -24,4 +24,7 @@ interface RecordDao {
     @Delete
     //成功的話，會回傳資料庫中異動的數量
     fun delete(record: Record): Int
+
+    @Query("SELECT COUNT(categoryID) FROM ${Record.TABLE_NAME} WHERE categoryID = :id")
+    fun getRecordCountByCategory(id: Long): Int
 }

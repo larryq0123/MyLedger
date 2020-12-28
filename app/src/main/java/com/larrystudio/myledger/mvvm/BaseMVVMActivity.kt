@@ -13,8 +13,8 @@ abstract class BaseMVVMActivity: VeryBaseActivity() {
     protected abstract fun initViewModel()
 
     protected fun doBasicSubscription(viewModel: BaseViewModel){
-        viewModel.ldToast.observe(this, Observer { showToast(it) })
-        viewModel.ldLoading.observe(this, Observer { toShow ->
+        viewModel.ldToast.observe(this, EventObserver { showToast(it) })
+        viewModel.ldLoading.observe(this, EventObserver { toShow ->
             if(toShow) showLoading()
                 else hideLoading()
         })

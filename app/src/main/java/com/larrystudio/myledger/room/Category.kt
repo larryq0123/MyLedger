@@ -19,10 +19,12 @@ class Category() {
 
     var type: Int = TYPE_EXP
 
+    @Transient
+    var recordCount: Int = 0
+
     fun isExpenditure() = type == TYPE_EXP
+
     override fun toString(): String {
         return "Category(id=$id, name='$name', type=$type)"
     }
-
-
 }

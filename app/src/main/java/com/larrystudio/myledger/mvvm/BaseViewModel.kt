@@ -8,8 +8,8 @@ abstract class BaseViewModel: ViewModel() {
     protected val TAG = javaClass.simpleName
     protected val compositeDisposable by lazy { CompositeDisposable() }
 
-    val ldToast = SingleLiveEvent<String>()
-    val ldLoading = SingleLiveEvent<Boolean>()
+    val ldToast = MutableLiveData<Event<String>>()
+    val ldLoading = MutableLiveData<Event<Boolean>>()
 
     open fun onCreateLifeCycle(){}
     open fun onStartLifeCycle(){}
@@ -28,6 +28,6 @@ abstract class BaseViewModel: ViewModel() {
      */
     open fun onBackPressed(): Boolean{ return false }
 
-    protected fun showShortToast(message: String){ ldToast.value = message }
-    protected fun showLoading(toShow: Boolean){ ldLoading.value = toShow }
+    protected fun showShortToast(message: String){ ldToast.value = Event(message) }
+    protected fun showLoading(toShow: Boolean){ ldLoading.value = Event(toShow) }
 }
