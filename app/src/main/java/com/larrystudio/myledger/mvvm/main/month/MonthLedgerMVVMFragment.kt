@@ -76,7 +76,7 @@ class MonthLedgerMVVMFragment: BaseMVVMFragment() {
 
     override fun initViewModel() {
         val factory = ViewModelFactory()
-        viewModel = ViewModelProvider(activity!!, factory).get(MonthLedgerViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MonthLedgerViewModel::class.java)
         doBasicSubscription(viewModel)
         viewModel.ldYearMonth.observe(viewLifecycleOwner, Observer { selectYearMonth(it.first, it.second) })
         viewModel.ldCategoryRecordsBean.observe(viewLifecycleOwner, Observer {

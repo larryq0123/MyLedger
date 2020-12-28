@@ -4,9 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.larrystudio.myledger.beans.EditRecordEvent
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.mvvm.BaseViewModel
+import com.larrystudio.myledger.mvvm.SingleLiveEvent
 import com.larrystudio.myledger.room.Category
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
+import com.larrystudio.myledger.util.LogUtil
 import java.util.*
 
 class DayLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewModel()  {
@@ -15,10 +17,13 @@ class DayLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMode
     private lateinit var categories: List<Category>
     private var selectedDate: Date = Date()
 
-    val ldNavigate = MutableLiveData<EditRecordEvent>()
+    val ldNavigate = SingleLiveEvent<EditRecordEvent>()
     val ldRecords = MutableLiveData<List<Record>>()
     val ldBalance = MutableLiveData<Int>()
 
+    init {
+        LogUtil.logd(TAG, "on init()")
+    }
 
     override fun onCreateLifeCycle() {
         super.onCreateLifeCycle()
@@ -36,10 +41,18 @@ class DayLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMode
     }
 
     fun onRecordClicked(position: Int) {
+        LogUtil.logd(TAG, "onRecordClicked()")
         ldNavigate.value = EditRecordEvent(null, ldRecords.value!![position])
     }
 
+    fun onDeleteRecord(position: Int){
+        val record = ldRecords.value!![position]
+        ledgerManager.deleteRecord(record)
+        showRecords(selectedDate)
+    }
+
     fun onAddClicked() {
+        LogUtil.logd(TAG, "onAddClicked()")
         val date = DateHelper.formatDate(selectedDate)
         ldNavigate.value = EditRecordEvent(date, null)
     }
@@ -57,7 +70,4 @@ class DayLedgerViewModel(private val ledgerManager: LedgerManager): BaseViewMode
         }
         ldBalance.value = balance
     }
-
-
-
 }

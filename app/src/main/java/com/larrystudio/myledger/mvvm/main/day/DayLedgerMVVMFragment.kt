@@ -1,5 +1,7 @@
 package com.larrystudio.myledger.mvvm.main.day
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -21,6 +23,7 @@ import com.larrystudio.myledger.mvvm.BaseMVVMFragment
 import com.larrystudio.myledger.mvvm.ViewModelFactory
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
+import com.larrystudio.myledger.util.LogUtil
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
@@ -38,6 +41,14 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         View.OnClickListener{
             val position = linearLedger.indexOfChild(it) - 2
             viewModel.onRecordClicked(position)
+        }
+    }
+
+    private val ledgerLongClickListener by lazy {
+        View.OnLongClickListener{
+            val position = linearLedger.indexOfChild(it) - 2
+            showDeleteRecordDialog(position)
+            return@OnLongClickListener true
         }
     }
 
@@ -61,7 +72,10 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         val factory = ViewModelFactory()
         viewModel = ViewModelProvider(activity!!, factory).get(DayLedgerViewModel::class.java)
         doBasicSubscription(viewModel)
-        viewModel.ldNavigate.observe(viewLifecycleOwner, Observer { openRecordEditView(it.date, it.record) })
+        viewModel.ldNavigate.observe(viewLifecycleOwner, Observer {
+            LogUtil.logd(TAG, "viewModel.ldNavigate, event = $it")
+            openRecordEditView(it.date, it.record)
+        })
         viewModel.ldRecords.observe(viewLifecycleOwner, Observer { showRecords(it) })
         viewModel.ldBalance.observe(viewLifecycleOwner, Observer { showBalance(it) })
     }
@@ -89,7 +103,7 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         }
     }
 
-    fun showRecords(records: List<Record>){
+    private fun showRecords(records: List<Record>){
         if(linearLedger.childCount > 2){
             linearLedger.removeViews(2, linearLedger.childCount-2)
         }
@@ -113,10 +127,11 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
 
             linearLedger.addView(ledgerView)
             ledgerView.setOnClickListener(ledgerClickListener)
+            ledgerView.setOnLongClickListener(ledgerLongClickListener)
         }
     }
 
-    fun showBalance(amount: Int) {
+    private fun showBalance(amount: Int) {
         textBalance.text = String.format(getString(R.string.today_balance), amount)
         val textColor = if(amount >= 0)
             GlobalUtil.getColor(activity, R.color.colorIncome)
@@ -136,5 +151,15 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         }
 
         startActivity(intent)
+    }
+
+    private fun showDeleteRecordDialog(position: Int){
+        AlertDialog.Builder(activity)
+            .setTitle("刪除紀錄")
+            .setMessage("請確定是否刪除該筆紀錄？")
+            .setPositiveButton("確定") { _, _ ->  viewModel.onDeleteRecord(position) }
+            .setNegativeButton("取消"){_, _ ->  }
+            .create()
+            .show()
     }
 }

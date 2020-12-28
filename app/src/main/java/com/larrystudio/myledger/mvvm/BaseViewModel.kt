@@ -7,8 +7,9 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class BaseViewModel: ViewModel() {
     protected val TAG = javaClass.simpleName
     protected val compositeDisposable by lazy { CompositeDisposable() }
-    val ldToast = MutableLiveData<String>()
-    val ldLoading = MutableLiveData<Boolean>()
+
+    val ldToast = SingleLiveEvent<String>()
+    val ldLoading = SingleLiveEvent<Boolean>()
 
     open fun onCreateLifeCycle(){}
     open fun onStartLifeCycle(){}

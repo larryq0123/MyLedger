@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.manager.ManagerFactory
 import com.larrystudio.myledger.mvvm.BaseViewModel
+import com.larrystudio.myledger.mvvm.SingleLiveEvent
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit
 @SuppressLint("CheckResult")
 class SplashViewModel(private val ledgerManager: LedgerManager): BaseViewModel() {
 
-    val ldNavigate = MutableLiveData<Int>()
+    val ldNavigate = SingleLiveEvent<Int>()
 
     override fun onCreateLifeCycle() {
         val wait = Single.timer(1500, TimeUnit.MILLISECONDS)
