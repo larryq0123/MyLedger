@@ -1,5 +1,6 @@
 package com.larrystudio.myledger.mvvm.category
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_category_manage.toolbar
 
 class CategoryManageActivity : BaseMVVMActivity() {
 
+    private val EDIT_CATEGORY_REQUEST = 1
     private lateinit var viewModel: CategoryManageViewModel
     private var categoryAdapter: CategoryAdapter? = null
 
@@ -26,7 +28,6 @@ class CategoryManageActivity : BaseMVVMActivity() {
 
         initView()
         initViewModel()
-        viewModel.onCreateLifeCycle()
     }
 
     private fun initView(){
@@ -40,6 +41,8 @@ class CategoryManageActivity : BaseMVVMActivity() {
         viewModel = ViewModelProvider(this, factory).get(CategoryManageViewModel::class.java)
         doBasicSubscription(viewModel)
         viewModel.ldCategories.observe(this, Observer { updateCategoryList(it) })
+
+        viewModel.refreshCategories()
     }
 
     private fun updateCategoryList(categories: List<Category>){
@@ -58,6 +61,14 @@ class CategoryManageActivity : BaseMVVMActivity() {
 
     private fun openCategoryEditPage(cid: Long){
         val intent = CategoryEditActivity.newIntent(this@CategoryManageActivity, cid)
-        startActivity(intent)
+        startActivityForResult(intent, EDIT_CATEGORY_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == EDIT_CATEGORY_REQUEST && resultCode == RESULT_OK){
+            viewModel.refreshCategories()
+        }
     }
 }

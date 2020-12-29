@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".mvvm.category.CategoryEditActivity">
+    <TextView
+        android:id="@+id/tagType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/large_padding"
 
+        android:text="種類："
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tagType"
+        app:layout_constraintLeft_toRightOf="@id/tagType"
+        tools:text="收入"
+        android:textSize="@dimen/medium_text_size"
+        android:textColor="@color/colorIncome"/>
+
+    <ImageView
+        android:id="@+id/imageChangeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagType"
+        app:layout_constraintBottom_toBottomOf="@id/tagType"
+        app:layout_constraintLeft_toRightOf="@id/textType"
+        android:layout_marginLeft="@dimen/xxxxlarge_padding"
+        android:src="@drawable/ic_change"
+        app:tint="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/tagName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tagType"
+        app:layout_constraintLeft_toLeftOf="@id/tagType"
+        android:layout_marginTop="@dimen/xxlarge_padding"
+        android:text="分類名稱："
+        android:textColor="@color/black"
+        android:textSize="@dimen/medium_text_size"/>
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tagName"
+        app:layout_constraintBottom_toBottomOf="@id/tagName"
+        app:layout_constraintLeft_toRightOf="@id/tagName"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/button_orange_stroke"
+        android:padding="@dimen/small_padding"
+        android:hint="請填寫分類名稱"
+        android:textSize="@dimen/medium_text_size"/>
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/large_padding"
+        android:layout_marginRight="@dimen/large_padding"
+        android:text="取消"/>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/buttonCancel"
+        app:layout_constraintRight_toRightOf="@id/buttonCancel"
+        app:layout_constraintBottom_toTopOf="@id/buttonCancel"
+        android:text="儲存"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

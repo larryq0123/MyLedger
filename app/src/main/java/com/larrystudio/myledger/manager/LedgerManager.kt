@@ -58,6 +58,11 @@ class LedgerManager(private val categoryDao: CategoryDao,
         return categoryDao.getAll()
     }
 
+    fun getCategoryByID(cid: Long): Category{
+        val categories = getAllCategories()
+        return categories.find { it.id == cid } ?: Category()
+    }
+
     fun insertCategory(category: Category): Long{
         return categoryDao.insert(category)
     }

@@ -104,7 +104,7 @@ class MainMVVMActivity : BaseMVVMActivity() {
             }else{
                 confirmToFinish = true
                 showToast("再點擊一次返回以退出app")
-                Completable.timer(1200, TimeUnit.MILLISECONDS)
+                Completable.timer(2000, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .subscribe { confirmToFinish = false }
             }

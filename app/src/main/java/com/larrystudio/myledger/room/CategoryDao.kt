@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface CategoryDao {
 
-    @Query("select * from " + Category.TABLE_NAME)
+    @Query("select * from ${Category.TABLE_NAME} order by type")
     fun getAll(): List<Category>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

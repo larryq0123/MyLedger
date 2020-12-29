@@ -138,21 +138,22 @@
 
     <Button
         android:id="@+id/buttonSave"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editComment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/buttonOneMore"
+        app:layout_constraintLeft_toLeftOf="@id/buttonOneMore"
+        app:layout_constraintRight_toRightOf="@id/buttonOneMore"
+        app:layout_constraintBottom_toTopOf="@id/buttonOneMore"
         app:layout_constraintVertical_bias="0.8"
         android:text="儲存"/>
 
     <Button
         android:id="@+id/buttonOneMore"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/buttonSave"
-        app:layout_constraintLeft_toRightOf="@id/buttonSave"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/large_padding"
+        android:layout_marginRight="@dimen/large_padding"
         android:text="再記一筆"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

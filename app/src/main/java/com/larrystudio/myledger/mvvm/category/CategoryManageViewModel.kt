@@ -16,10 +16,10 @@ class CategoryManageViewModel(private val ledgerManager: LedgerManager): BaseVie
     val ldCategories = MutableLiveData<List<Category>>()
 
 
-    override fun onCreateLifeCycle() {
+    fun refreshCategories(){
         Single.fromCallable {
-            return@fromCallable ledgerManager.getAllCategories().apply {
-                forEach { it.recordCount = ledgerManager.getRecordCountByCategory(it) }
+            return@fromCallable ledgerManager.getAllCategories().onEach {
+                it.recordCount = ledgerManager.getRecordCountByCategory(it)
             }
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
