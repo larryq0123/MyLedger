@@ -69,7 +69,7 @@ class YearLedgerMVVMFragment: BaseMVVMFragment() {
 
     override fun initViewModel() {
         val factory = ViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(YearLedgerViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!, factory).get(YearLedgerViewModel::class.java)
         doBasicSubscription(viewModel)
         viewModel.ldYear.observe(viewLifecycleOwner, Observer {
             textYear.text = it.toString()

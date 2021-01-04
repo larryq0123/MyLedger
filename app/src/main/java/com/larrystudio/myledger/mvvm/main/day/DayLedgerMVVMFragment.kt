@@ -29,6 +29,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import kotlinx.android.synthetic.main.fragment_day_ledger.*
+import kotlinx.coroutines.*
 import java.util.*
 
 class DayLedgerMVVMFragment: BaseMVVMFragment() {
