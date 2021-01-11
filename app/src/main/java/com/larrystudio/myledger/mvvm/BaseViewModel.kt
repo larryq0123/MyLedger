@@ -2,6 +2,7 @@ package com.larrystudio.myledger.mvvm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.larrystudio.myledger.util.LogUtil
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel: ViewModel() {
@@ -19,6 +20,7 @@ abstract class BaseViewModel: ViewModel() {
     open fun onDestroyLifeCycle(){}
 
     override fun onCleared() {
+        LogUtil.logd(TAG, "onCleared()")
         compositeDisposable.clear()
         super.onCleared()
     }

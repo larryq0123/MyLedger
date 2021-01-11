@@ -10,11 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name="com.larrystudio.myledger.mvvm.backup.BackupMVVMActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".mvvm.category.CategoryEditActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".mvvm.category.CategoryManageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvvm.recordedit.RecordEditMVVMActivity"
             android:screenOrientation="portrait" />

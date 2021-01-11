@@ -5,7 +5,6 @@ import com.larrystudio.myledger.room.CategoryDao
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.room.RecordDao
 import com.larrystudio.myledger.util.DateHelper
-import com.larrystudio.myledger.util.LogUtil
 import java.util.*
 
 class LedgerManager(private val categoryDao: CategoryDao,
@@ -137,8 +136,8 @@ class LedgerManager(private val categoryDao: CategoryDao,
         calendar.set(Calendar.DAY_OF_MONTH, 31)
         val end = DateHelper.timestampOfDate(calendar.time)
 
-        LogUtil.logd(TAG, "beginDate = ${DateHelper.formatDate(calendar.time)}, beginTimestamp = $start")
-        LogUtil.logd(TAG, "endDate = ${DateHelper.formatDate(calendar.time)}, endTimestamp = $end")
+//        LogUtil.logd(TAG, "beginDate = ${DateHelper.formatDate(calendar.time)}, beginTimestamp = $start")
+//        LogUtil.logd(TAG, "endDate = ${DateHelper.formatDate(calendar.time)}, endTimestamp = $end")
 
         val categories = getAllCategories()
         return recordDao.getRecordsByInterval(start, end).apply {
@@ -161,4 +160,20 @@ class LedgerManager(private val categoryDao: CategoryDao,
     fun deleteRecord(record: Record): Int{
         return recordDao.delete(record)
     }
+
+    fun backUpAll(): BackupBean{
+        val allCategory = getAllCategories()
+        val allRecord = loadAllRecords()
+
+        val backupCategories = mutableListOf<BackupCategory>()
+        allCategory.forEach { c ->
+            val records = allRecord.filter { it.categoryID == c.id }
+            val backupRecords = records.map { r -> BackupRecord(r.createTimestamp, r.amount, r.comment) }
+            backupCategories.add(BackupCategory(c.name, c.type, backupRecords))
+        }
+
+        return BackupBean("test", backupCategories)
+    }
+
+
 }

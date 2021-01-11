@@ -57,11 +57,11 @@ class RecordEditViewModel(private val ledgerManager: LedgerManager): BaseViewMod
     }
 
     fun onSaveClicked(tempRecord: TempRecord): Boolean {
-        return saveRecord(tempRecord, true)
+        return saveRecord(tempRecord)
     }
 
     fun onOneMoreClicked(tempRecord: TempRecord): Boolean {
-        return saveRecord(tempRecord, false)
+        return saveRecord(tempRecord)
     }
 
     private fun setCategories(expType: Int){
@@ -73,7 +73,7 @@ class RecordEditViewModel(private val ledgerManager: LedgerManager): BaseViewMod
         ldCategories.value = categories
     }
 
-    private fun saveRecord(tempRecord: TempRecord, finishAfterAction: Boolean): Boolean{
+    private fun saveRecord(tempRecord: TempRecord): Boolean{
         if(tempRecord.amount.isEmpty() || tempRecord.amount == "0"){
             showShortToast("請填寫金額")
             return false

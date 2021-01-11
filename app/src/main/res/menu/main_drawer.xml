@@ -21,5 +21,10 @@
             android:id="@+id/action_category"
             android:icon="@drawable/ic_category"
             android:title="@string/category_manage" />
+
+        <item
+            android:id="@+id/action_backup"
+            android:icon="@drawable/ic_category"
+            android:title="備份" />
     </group>
 </menu>

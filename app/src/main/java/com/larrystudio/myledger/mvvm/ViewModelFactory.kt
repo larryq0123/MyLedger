@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.larrystudio.myledger.LedgerApp
 import com.larrystudio.myledger.manager.LedgerManager
 import com.larrystudio.myledger.manager.ManagerFactory
+import com.larrystudio.myledger.mvvm.backup.BackupViewModel
 import com.larrystudio.myledger.mvvm.category.CategoryEditViewModel
 import com.larrystudio.myledger.mvvm.category.CategoryManageViewModel
 import com.larrystudio.myledger.mvvm.main.day.DayLedgerViewModel
@@ -51,6 +52,10 @@ class ViewModelFactory: ViewModelProvider.Factory {
             modelClass.isAssignableFrom(CategoryEditViewModel::class.java) ->{
                 val ledgerManager = getLedgerManager()
                 return CategoryEditViewModel(ledgerManager) as T
+            }
+            modelClass.isAssignableFrom(BackupViewModel::class.java) ->{
+                val ledgerManager = getLedgerManager()
+                return BackupViewModel(ledgerManager) as T
             }
         }
 

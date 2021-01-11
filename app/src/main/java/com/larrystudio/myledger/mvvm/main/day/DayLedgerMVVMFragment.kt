@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
 import com.larry.larrylibrary.util.GlobalUtil
 import com.larry.larrylibrary.util.MeasureUtil
@@ -22,6 +23,7 @@ import com.larrystudio.myledger.mvp.recordedit.RecordEditView
 import com.larrystudio.myledger.mvvm.BaseMVVMFragment
 import com.larrystudio.myledger.mvvm.EventObserver
 import com.larrystudio.myledger.mvvm.ViewModelFactory
+import com.larrystudio.myledger.mvvm.recordedit.RecordEditMVVMActivity
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.util.DateHelper
 import com.larrystudio.myledger.util.LogUtil
@@ -74,9 +76,7 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
         val factory = ViewModelFactory()
         viewModel = ViewModelProvider(activity!!, factory).get(DayLedgerViewModel::class.java)
         doBasicSubscription(viewModel)
-        viewModel.ldNavigate.observe(viewLifecycleOwner, EventObserver{
-            openRecordEditView(it.date, it.record)
-        })
+        viewModel.ldNavigate.observe(viewLifecycleOwner, EventObserver{ openRecordEditView(it.date, it.record) })
         viewModel.ldRecords.observe(viewLifecycleOwner, Observer { showRecords(it) })
         viewModel.ldBalance.observe(viewLifecycleOwner, Observer { showBalance(it) })
     }
@@ -141,7 +141,7 @@ class DayLedgerMVVMFragment: BaseMVVMFragment() {
     }
 
     private fun openRecordEditView(dateString: String?, record: Record?) {
-        val intent = Intent(activity, RecordEditMVPActivity::class.java)
+        val intent = Intent(activity, RecordEditMVVMActivity::class.java)
 
         if(dateString != null){
             intent.putExtra(RecordEditView.DATA_DATE, dateString)

@@ -99,7 +99,7 @@ class RecordEditMVVMActivity : BaseMVVMActivity() {
         }
     }
 
-    fun clearEntries() {
+    private fun clearEntries() {
         editAmount.setText("")
         editComment.setText("")
     }

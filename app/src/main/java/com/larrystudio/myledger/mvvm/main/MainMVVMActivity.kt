@@ -11,11 +11,12 @@ import com.larrystudio.myledger.mvvm.BaseMVVMActivity
 import com.larrystudio.myledger.mvvm.BaseMVVMFragment
 import com.larrystudio.myledger.mvvm.ViewModelFactory
 import com.larrystudio.myledger.mvvm.category.CategoryManageActivity
+import com.larrystudio.myledger.mvvm.backup.BackupMVVMActivity
 import com.larrystudio.myledger.mvvm.main.day.DayLedgerMVVMFragment
 import com.larrystudio.myledger.mvvm.main.month.MonthLedgerMVVMFragment
 import com.larrystudio.myledger.mvvm.main.year.YearLedgerMVVMFragment
+import com.larrystudio.myledger.util.LogUtil
 import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main_mvvm.*
 import java.util.concurrent.TimeUnit
@@ -65,6 +66,10 @@ class MainMVVMActivity : BaseMVVMActivity() {
                 }
                 R.id.action_category -> {
                     goPage(CategoryManageActivity::class.java, false)
+                    false
+                }
+                R.id.action_backup ->{
+                    goPage(BackupMVVMActivity::class.java, false)
                     false
                 }
                 else -> false
