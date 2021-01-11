@@ -5,6 +5,7 @@ import com.larrystudio.myledger.room.CategoryDao
 import com.larrystudio.myledger.room.Record
 import com.larrystudio.myledger.room.RecordDao
 import com.larrystudio.myledger.util.DateHelper
+import io.reactivex.Completable
 import java.util.*
 
 class LedgerManager(private val categoryDao: CategoryDao,
@@ -175,5 +176,29 @@ class LedgerManager(private val categoryDao: CategoryDao,
         return BackupBean("test", backupCategories)
     }
 
+    fun restore(bean: BackupBean): Completable{
+        return Completable.fromAction {
+            categoryDao.deleteAll()
+            recordDao.deleteAll()
 
+            bean.categories.forEach { category ->
+                val c = Category().also {
+                    it.name = category.name
+                    it.type = if(category.type == 2) Category.TYPE_EXP else Category.TYPE_INCOME
+                }
+
+                val cid = categoryDao.insert(c)
+                category.records.forEach { record ->
+                    val r = Record().also {
+                        it.categoryID = cid
+                        it.createTimestamp = record.createTimestamp
+                        it.amount = record.amount
+                        it.comment = record.comment
+                    }
+
+                    recordDao.insert(r)
+                }
+            }
+        }
+    }
 }

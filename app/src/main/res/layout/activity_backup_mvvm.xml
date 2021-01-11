@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:minHeight="400dp"
             android:background="@color/transparent"
-            android:gravity="top"
-            android:text="sdfvsdfvsdfvsdfv"/>
+            android:gravity="top" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,4 +14,7 @@ interface CategoryDao {
     @Update
     //成功的話，會回傳資料庫中異動的數量
     fun update(category: Category): Int
+
+    @Query("delete from ${Category.TABLE_NAME}")
+    fun deleteAll()
 }

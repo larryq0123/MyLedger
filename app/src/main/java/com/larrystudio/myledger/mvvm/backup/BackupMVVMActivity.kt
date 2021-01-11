@@ -37,28 +37,13 @@ class BackupMVVMActivity : BaseMVVMActivity() {
         val factory = ViewModelFactory()
         viewModel = ViewModelProvider(this, factory).get(BackupViewModel::class.java)
         doBasicSubscription(viewModel)
-
-        lifecycleScope.launch {
-            LogUtil.logd(TAG, "thread name = ${Thread.currentThread().name}")
-            val str1 = async {
-                delay(1000)
-                LogUtil.logd(TAG, "in async 1, thread name = ${Thread.currentThread().name}")
-                "str1"
-            }
-
-            val str2 = async {
-                delay(1800)
-                LogUtil.logd(TAG, "in async 2, thread name = ${Thread.currentThread().name}")
-                "str2"
-            }
-
-            val str = str1.await() + str2.await()
-            LogUtil.logd(TAG, "after async block, str = $str, thread name = ${Thread.currentThread().name}")
-        }
     }
 
     private fun initListeners(){
         buttonBackup.setOnClickListener { viewModel.onBackupClicked() }
-        buttonRestore.setOnClickListener {  }
+        buttonRestore.setOnClickListener {
+            val json = editBackup.text.toString()
+            viewModel.onRestoreClicked(json)
+        }
     }
 }
